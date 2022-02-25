@@ -1,7 +1,8 @@
-function messageTemplate(data, event) {
+function messageTemplate(data, event, id) {
     const msg = {
         data: data,
-        event: event
+        event: event,
+        id: id
     }
     return JSON.stringify(msg)
 }

@@ -27,9 +27,24 @@ wss.on('connection', ws => {
                             ws.seekingID = client.id
                             client.seekingID = ws.id
 
-                            ws.send(messageTemplate('finded', 'status'))
-                            client.send(messageTemplate('finded', 'status'))
+                            ws.send(messageTemplate('finded', 'status', client.id))
+                            client.send(messageTemplate('finded', 'status', ws.id))
                         }
+                    }
+                })
+            }
+
+            else if (message.data.status == 'print') {
+                wss.clients.forEach(client => {
+                    if (client.seekingID == ws.id ) {
+                        client.send(messageTemplate('print', 'status'))
+                    }
+                })
+            }
+            else if (message.data.status == 'endPrint') {
+                wss.clients.forEach(client => {
+                    if (client.seekingID == ws.id ) {
+                        client.send(messageTemplate('endPrint', 'status'))
                     }
                 })
             }
