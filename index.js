@@ -62,12 +62,10 @@ wss.on('connection', ws => {
     })
 
     ws.on('close', () => {
-        if (ws.id != client.id) {
             wss.clients.forEach(client => {
-                if (client.seekingID == ws.id) {
+                if (client.seekingID == ws.id && ws.id != client.id) {
                     client.send(messageTemplate('disconnected', 'status'))
                 }
             })
-        }
     })
 })
